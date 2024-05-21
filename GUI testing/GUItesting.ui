@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>GUItestingClass</class>
+ <widget class="QMainWindow" name="GUItestingClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>770</width>
+    <height>379</height>
+   </rect>
+  </property>
+  <property name="cursor">
+   <cursorShape>PointingHandCursor</cursorShape>
+  </property>
+  <property name="windowTitle">
+   <string>GUItesting</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QPushButton" name="User">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>180</y>
+      <width>221</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>24</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Book  Ticket</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Admin">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>180</y>
+      <width>131</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>26</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Admin</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>20</y>
+      <width>551</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Impact</family>
+      <pointsize>28</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Welcome to الشعب الصيني Cinema</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>User</tabstop>
+  <tabstop>Admin</tabstop>
+ </tabstops>
+ <resources>
+  <include location="GUItesting.qrc"/>
+ </resources>
+ <connections/>
+ <slots>
+  <slot>CreateCustomer()</slot>
+ </slots>
+</ui>
