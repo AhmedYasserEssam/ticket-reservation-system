@@ -12,6 +12,8 @@ int main(int argc, char* argv[])
 	return a.exec();
 }
 
+
+//FROM Omar and Mohamed
 //void createSchedules(Schedule s[], string d[], string h[])
 //{
 //	
