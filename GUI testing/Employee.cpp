@@ -1,44 +1,43 @@
 #include "Employee.h"
-#include <iostream>
-using namespace std;
+
+
 Employee::Employee(){}
 
 
-Employee::Employee(string N, string E, string I, int A, int S, string T, string SH ) : Person(N, E, I, A)
-{
-	Salary = S;
-	Title = T;
-	Shift = SH;
+Employee::Employee(const string& name, const string& email, const string& id, const int& age, const int& salary, const string& title, const string& shift ) : Person(name, email, id, age){
+	this->salary = salary;
+	this->title = title;
+	this->shift = shift;
 	
 }
 
-void Employee::setSalary(int S)
-{
-	Salary = S;
+
+void Employee::setSalary(const int& salary){
+	this->salary = salary;
 }
 
-void Employee::setTitle(string T)
-{
-	Title = T;
+
+void Employee::setTitle(const string& title){
+	this->title = title;
 }
 
-void Employee::setShift(string SH)
-{
-	Shift = SH;
+
+void Employee::setShift(const string& shift){
+	this->shift = shift;
 }
 
-int Employee::getSalary()
-{
-	return Salary;
+
+int Employee::getSalary() const {
+	return salary;
 }
 
-string Employee::getTitle()
-{
-	return Title;
+
+string Employee::getTitle() const {
+	return title;
 
 }
 
-string Employee::getShift()
-{
-	return Shift;
+
+string Employee::getShift() const {
+	return shift;
 }

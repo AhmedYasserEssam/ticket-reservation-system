@@ -1,15 +1,14 @@
 #include "Admin.h"
-#include <iostream>
-using namespace std;
+
 
 Admin::Admin() {}
 
-void Admin::setKey(string K)
-{
-	Key = K;
-}
 
-string Admin::getKey()
-{
-	return Key;
+void Admin::setKey(const string& key){
+	this->key = key;
+} 
+
+
+string Admin::getKey() const {
+	return key;
 }

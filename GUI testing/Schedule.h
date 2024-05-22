@@ -10,7 +10,10 @@ class Schedule
 {
 	static const int DAYS = 3;
 	static const int DAILY_MAX_SHOWTIMES = 9;
-	Session* showtimes[DAYS][DAILY_MAX_SHOWTIMES];
+
+	typedef Session* ShowtimesArray[DAYS][DAILY_MAX_SHOWTIMES];
+	ShowtimesArray showtimes;
+
 	int showtimeCounts[DAYS];
 	string startDate[DAYS];
 
@@ -21,9 +24,11 @@ public:
 	~Schedule();
 
 	int getDays() const;
-	string getDayDate(int) const;
+	int getDailyMaxShowtimes() const;
+	string getDayDate(const int&) const;
+	const ShowtimesArray& getShowtimes() const;
 
-	bool addShowtime(const Session&, int);
+	bool addShowtime(const Session&, const int&);
 	bool removeShowtime(const string&, const string&);
 
 	void listShowtimes() const;

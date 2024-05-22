@@ -98,12 +98,12 @@
     <ClCompile Include="Reservation.cpp" />
     <ClCompile Include="Schedule.cpp" />
     <ClCompile Include="Seat.cpp" />
-    <ClCompile Include="Session.cpp" />
-    <ClCompile Include="Ticket.cpp" />
+    <ClCompile Include="Main.cpp" />
     <QtRcc Include="GUItesting.qrc" />
     <QtUic Include="GUItesting.ui" />
     <QtMoc Include="GUItesting.h" />
     <ClCompile Include="Admin.cpp" />
+    <ClCompile Include="Session.cpp" />
     <ClCompile Include="Customer.cpp" />
     <ClCompile Include="Employee.cpp" />
     <ClCompile Include="GUItesting.cpp" />
@@ -112,13 +112,15 @@
   <ItemGroup>
     <ClInclude Include="Admin.h" />
     <ClInclude Include="Cinema.h" />
+    <ClInclude Include="Session.h" />
     <ClInclude Include="Customer.h" />
     <ClInclude Include="Employee.h" />
     <ClInclude Include="Hall.h" />
     <ClInclude Include="Movie.h" />
+    <ClInclude Include="Person.h" />
     <ClInclude Include="Reservation.h" />
     <ClInclude Include="Schedule.h" />
-    <ClInclude Include="Session.h" />
+    <ClInclude Include="Seat.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

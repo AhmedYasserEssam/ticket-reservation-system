@@ -7,18 +7,18 @@ Customer::Customer(){
 }
 
 
-Customer::Customer(string name, string email){
+Customer::Customer(const string& name, const string& email){
 	this->name = name;
 	this->email = email;
 }
 
 
-void Customer::setName(string name){
+void Customer::setName(const string& name){
 	this->name = name;
 }
 
 
-void Customer::setEmail(string email){
+void Customer::setEmail(const string& email){
 	this->email = email;
 }
 
@@ -33,7 +33,7 @@ string Customer::getEmail() const{
 }
 
 
-bool Customer::operator==(Customer c2){
+bool Customer::operator==(const Customer& c2){
 	return name == c2.name && email == c2.email;
 }
 

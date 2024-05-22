@@ -1,20 +1,23 @@
 #pragma once
+
 #include "Person.h"
-class Employee : public Person
-{
-private:
-	int Salary;
-	string Title;
-	string Shift;
+
+
+class Employee : public Person{
+	int salary;
+	string title;
+	string shift;
+
 public:
 	Employee();
-	Employee(string N, string E, string I, int A, int S, string T, string SH);
-	void setSalary(int S);
-	void setTitle(string T);
-	void setShift(string SH);
-	int getSalary();
-	string getTitle();
-	string getShift();
+	Employee(const string&, const string&, const string&, const int&, const int&, const string&, const string&);
 
+	void setSalary(const int&);
+	void setTitle(const string&);
+	void setShift(const string&);
+
+	int getSalary() const;
+	string getTitle() const;
+	string getShift() const;
 };
 

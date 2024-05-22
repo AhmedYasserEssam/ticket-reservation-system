@@ -11,15 +11,15 @@ class Customer{
 
 public:
 	Customer();
-	Customer(string, string);
+	Customer(const string&, const string&);
 
-	void setName(string);
-	void setEmail(string);
+	void setName(const string&);
+	void setEmail(const string&);
 
 	string getName() const;
 	string getEmail() const;
 
-	bool operator==(Customer);
+	bool operator==(const Customer&);
 
 	friend istream& operator>>(istream&, Customer&);
 	friend ostream& operator<<(ostream&, Customer&);

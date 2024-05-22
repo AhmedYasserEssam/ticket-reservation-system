@@ -22,10 +22,12 @@ public:
 	void setMovie(const Movie&);
 	void setHall(const Hall&);
 	void setDayDate(const string&);
+	void setTiming(const string&);
 
 	Movie getMovie() const;
 	Hall getHall() const;
 	string getDayDate() const;
+	string getTiming() const;
 	int getReservationCount();
 
 	void addReservation(const Reservation&);

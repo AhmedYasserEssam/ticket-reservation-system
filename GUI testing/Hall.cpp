@@ -2,7 +2,7 @@
 
 
 Hall::Hall() {
-	rows = 10, cols = 10;
+	rows = 10, cols = 10; id = "H-00";
 	auditorium = new Seat * [rows];
 	char i = 'A';
 	int k = 0;
@@ -20,8 +20,8 @@ Hall::Hall() {
 }
 
 
-Hall::Hall(int rows, int cols,string ID){
-	this->rows = rows; this->cols = cols; this->ID = ID;
+Hall::Hall(const int& rows, const int& cols, const string& id){
+	this->rows = rows; this->cols = cols; this->id = id;
 	auditorium = new Seat*[rows];
 	char i = 'A';
 	for (int k = 0; k < rows; ++k)
@@ -70,7 +70,7 @@ int Hall::getCurrentShowtimeCnt() const {
 }
 
 */
-bool Hall::isAvailable(string id) {
+bool Hall::isAvailable(const string& id) {
 	for (int i = 0; i < rows; ++i) {
 		for (int j = 0; j < cols; ++j) {
 			if (auditorium[i][j].getId() == id && auditorium[i][j].getState() == false) return false;
@@ -90,7 +90,7 @@ float Hall::checkPrice(string id) {
 }
 
 */
-void Hall::bookSeat(string id)
+void Hall::bookSeat(const string& id)
 {
 	for (int i = 0; i < rows; ++i) {
 		for (int j = 0; j < cols; ++j) 
@@ -107,7 +107,7 @@ void Hall::bookSeat(string id)
 }
 
 
-void Hall::freeSeat(string id){
+void Hall::freeSeat(const string& id){
 	for (int i = 0; i < rows; ++i) {
 		for (int j = 0; j < cols; ++j) {
 			if (auditorium[i][j].getId() == id && auditorium[i][j].getState() == false) {

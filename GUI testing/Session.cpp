@@ -28,6 +28,10 @@ void Session::setDayDate(const string& dateTime){
 	this->dayDate = dateTime;
 }
 
+void Session::setTiming(const string& timing){
+	this->timing = timing;
+}
+
 
 Movie Session::getMovie() const{
 	return film;
@@ -41,6 +45,11 @@ Hall Session::getHall() const{
 
 string Session::getDayDate() const{
 	return dayDate;
+}
+
+
+string Session::getTiming() const{
+	return timing;
 }
 
 

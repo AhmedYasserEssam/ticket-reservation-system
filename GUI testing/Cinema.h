@@ -11,10 +11,18 @@ class Cinema {
 	Hall halls[3];
 	Schedule timetable;
 	Session* slots; int slotCnt;
-	string times[3] = { "10:00 AM","2:30 PM", "6:15 PM" };
+	string times[3];
 
 public:
 	Cinema();
+	
+	int getFilmCnt() const;
+	int getHallsCnt() const;
+	// int getSlotCnt() const;
+	int getTimesCnt() const;
 
+	void setTimings();
+	void addFilm(const string&, const string&, const int&, const int&);
+	void removeFilm(const string&);
 };
 

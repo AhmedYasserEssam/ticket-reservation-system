@@ -7,28 +7,27 @@ using namespace std;
 
 
 class Movie{
-	string title, time;
-	//enum genre;
+	string title, genre;
 	int year;
 	int duration;
 
 public:
 	Movie();
-	Movie(string, int, int);
+	Movie(const string&, const string&, const int&, const int&);
 
-	void setTitle(string);
-	//void setGenre(genre);
-	void setYear(int);
-	void setDuration(int);
+	void setTitle(const string&);
+	void setGenre(const string&);
+	void setYear(const int&);
+	void setDuration(const int&);
 
 	string getTitle() const;
-	//genre getGenre() const;
+	string getGenre() const;
 	int getYear() const;
 	int getDuration() const;
 	
 
 	void operator=(Movie);
-	bool operator==(Movie);
+	bool operator==(const Movie&);
 
 	friend istream& operator>>(istream&, Movie&);
 	friend ostream& operator<<(ostream&, Movie&);

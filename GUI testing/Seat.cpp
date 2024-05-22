@@ -1,10 +1,9 @@
 #include "Seat.h"
 
 
-Seat::Seat()
-{
+Seat::Seat(){
 	id = "";
-	price = 0;
+	price = 0.0;
 	state = 0;
 };
 
@@ -27,6 +26,7 @@ Seat::Seat(char c,int n){
 	}
 }
 
+
 /*
 Seat::Seat(char id, int num, bool state){
 	this->id = id;
@@ -46,12 +46,13 @@ Seat::Seat(char id, int num, bool state){
 }
 */
 
-void Seat::setId(string id){
+
+void Seat::setId(const string& id){
 	this->id = id;
 }
 
 
-void Seat::setPrice(float price){
+void Seat::setPrice(const float& price){
 	this->price = price;
 }
 
@@ -61,23 +62,22 @@ void Seat::setState(bool state){
 }
 
 
-string Seat::getId(){
+string Seat::getId() const {
 	return id;
 }
 
 
-float Seat::getPrice(){
+float Seat::getPrice() const {
 	return price;
 }
 
 
-bool Seat::getState(){
+bool Seat::getState() const {
 	return state;
 }
 
 
-void Seat::operator=(Seat s2)
-{
+void Seat::operator=(Seat& s2){
 	this->id = s2.getId();
 	this->price = s2.getPrice();
 	this->state = s2.getState();

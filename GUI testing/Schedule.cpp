@@ -1,8 +1,7 @@
 #include "Schedule.h"
 
 
-string Schedule::getCurrentDateString(int daysOffset = 0)
-{
+string Schedule::getCurrentDateString(int daysOffset = 0){
     auto ctime = time(nullptr);
     const int daySeconds = (24 * 60 * 60) * (daysOffset+1);
     tm* nextDay = localtime(&ctime);
@@ -17,8 +16,6 @@ string Schedule::getCurrentDateString(int daysOffset = 0)
     ostringstream oss;
     oss << put_time(tm, "%d/%m");
     return oss.str() + string(buffer);
-
-
 }
 
 
@@ -33,8 +30,7 @@ Schedule::Schedule() {
 }
 
 
-Schedule::~Schedule()
-{
+Schedule::~Schedule(){
     for (int i = 0; i < DAYS; ++i) {
         for (int j = 0; j < showtimeCounts[i]; ++j) {
             delete showtimes[i][j];
@@ -48,16 +44,25 @@ int Schedule::getDays() const {
 }
 
 
-string Schedule::getDayDate(int dayIndex) const{
+int Schedule::getDailyMaxShowtimes() const{
+    return DAILY_MAX_SHOWTIMES;
+}
+
+
+string Schedule::getDayDate(const int& dayIndex) const{
     return startDate[dayIndex];
 }
 
 
-bool Schedule::addShowtime(const Session& showtime, int dayIndex) {
+const Schedule::ShowtimesArray& Schedule::getShowtimes() const{
+    return showtimes;
+}
+
+
+bool Schedule::addShowtime(const Session& showtime, const int& dayIndex) {
     if (dayIndex < 0 || dayIndex >= DAYS || showtimeCounts[dayIndex] >= DAILY_MAX_SHOWTIMES) return false;
 
-    showtimes[dayIndex][showtimeCounts[dayIndex]] = new Session(showtime); // test if assignment operator is needed
-    showtimeCounts[dayIndex]++;
+    showtimes[dayIndex][showtimeCounts[dayIndex]++] = new Session(showtime); //test if assignment operator is needed//
     return true;
 }
 

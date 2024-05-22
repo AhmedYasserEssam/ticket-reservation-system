@@ -9,22 +9,22 @@ using namespace std;
 class Seat{
 	string id;
 	float price;
-	bool state; //true = not reserved
+	bool state; //true = not reserved//
 
 public:
 	Seat();
-	Seat(char,int);
+	Seat(char, int);
 	//Seat(char, int, bool);
 
-	void setId(string);
-	void setPrice(float);
+	void setId(const string&);
+	void setPrice(const float&);
 	void setState(bool);
 
-	string getId();
-	float getPrice();
-	bool getState();
+	string getId() const;
+	float getPrice() const;
+	bool getState() const;
 
 	//friend member ostream& operator<<(ostream& os, const Seat& s); 
-	void operator=(Seat);
+	void operator=(Seat&);
 };
 

@@ -17,12 +17,12 @@ class Reservation{
 	Seat* reserved;
 public:
 	Reservation();
-	Reservation(int, Customer, Movie);
+	Reservation(const int&, const Customer&, const Movie&);
 
-	void setSeatCnt(int);
-	void setOrderID(string);
-	void setClient(Customer);
-	void setFilm(Movie);
+	void setSeatCnt(const int&);
+	void setOrderID(const string&);
+	void setClient(const Customer&);
+	void setFilm(const Movie&);
 	void setReserved(Seat*);
 
 	int getSeatCnt() const;
@@ -31,9 +31,9 @@ public:
 	Movie getFilm() const;
 	Seat* getReserved() const;
 
-	void changeSeat(string, string);
+	void changeSeat(const string&, const string&);
 	//void addSeat(char,int);
-	void removeSeat(string);
+	void removeSeat(const string&);
 	void cancelReservation();
 
 	~Reservation();

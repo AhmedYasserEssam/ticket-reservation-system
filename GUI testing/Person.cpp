@@ -1,78 +1,52 @@
 #include "Person.h"
-#include <iostream>
-#include<string>
-using namespace std;
+
+
 Person::Person(){}
-Person::Person(string N, string E, string I, int A)
-{
-	Name = N;
-	Email = E;
-	ID = I;
-	Age = A;
+
+
+Person::Person(const string& name, const string& email, const string& id, const int& age) {
+	this->name = name;
+	this->email = email;
+	this->id = id;
+	this->age = age;
 }
 
-void Person::setName(string N)
-{
-	Name = N;
+
+void Person::setName(const string& name) {
+	this->name = name;
 }
 
-void Person::setEmail(string E)
-{
-	bool flag = false;
-	int l = E.length();
-	char arr1[4] = { 'm','o','c','.'};
-	for (int j = 0; j < 4; j++) {
-		for (int x = l - 1; x >= l - 4; x--) {
-			if (arr1[j] != E[x]) {
-				cout << "Please enter a valid email";
-				break;
-				for (int i = 0; i < l; i++) {
-					if (i == '@') {
-						flag = true;
-					}
-					cout << "Please enter a valid email";
-					break;
-				}
-			} 
-				}
-	}
-	
-	
 
+void Person::setEmail(const string& email) {
+	this->email = email;
 }
 
-void Person::setID(string I)
-{
-	ID = I;
+
+void Person::setID(const string& id) {
+	this->id = id;
 }
 
-void Person::setAge(int A)
-{
-	if(Age > 0) {
-		Age = A;
-	}
-	else {
-		cout << "Invalid Age" << endl;
-	}
-	
+
+void Person::setAge(const int& age) {
+	this->age = age;
 }
 
-string Person::getName()
-{
-	return Name;
+
+string Person::getName() const {
+	return name;
 }
 
-string Person::getEmail()
-{
-	return Email;
+
+string Person::getEmail() const {
+	return email;
 }
 
-string Person::getID()
-{
-	return ID;
+
+string Person::getID() const {
+	return id;
 }
 
-int Person::getAge()
-{
-	return Age;
+
+int Person::getAge() const {
+	return age;
 }

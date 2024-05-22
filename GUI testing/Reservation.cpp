@@ -7,7 +7,7 @@ Reservation::Reservation(){
 }
 
 
-Reservation::Reservation(int orderID, Customer client, Movie film){
+Reservation::Reservation(const int& orderID, const Customer& client, const Movie& film){
 	this->seatCnt = seatCnt;
 	this->orderID = orderID;
 	this->client = client;
@@ -16,22 +16,22 @@ Reservation::Reservation(int orderID, Customer client, Movie film){
 }
 
 
-void Reservation::setSeatCnt(int seatCnt){
+void Reservation::setSeatCnt(const int& seatCnt){
 	this->seatCnt = seatCnt;
 }
 
 
-void Reservation::setOrderID(string orderID){
+void Reservation::setOrderID(const string& orderID){
 	this->orderID = orderID;
 }
 
 
-void Reservation::setClient(Customer client){
+void Reservation::setClient(const Customer& client){
 	this->client = client;
 }
 
 
-void Reservation::setFilm(Movie film){
+void Reservation::setFilm(const Movie& film){
 	this->film = film;
 }
 
@@ -66,7 +66,7 @@ Seat* Reservation::getReserved() const{
 }
 
 
-void Reservation::changeSeat(string idIn, string idOut){
+void Reservation::changeSeat(const string& idIn, const string& idOut){
 	for (int i = 0; i < seatCnt; ++i) 
 	{
 		if (reserved[i].getId() == idOut)
@@ -89,7 +89,7 @@ void Reservation::addSeat(char ID,int num)
 */
 
 
-void Reservation::removeSeat(string ID){
+void Reservation::removeSeat(const string& ID){
 	for (int i = 0; i < seatCnt; ++i) {
 		if (reserved[i].getId() == ID) {
 			reserved[i].setState(true); // freeSeat()?
@@ -106,7 +106,7 @@ void Reservation::cancelReservation(){
 	for (int i = 0; i < seatCnt; ++i) {
 		reserved[i].setState(true);
 	}
-	delete[] reserved; // destructor?
+	delete[] reserved; //destructor?//
 }
 
 
