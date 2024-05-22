@@ -24,5 +24,9 @@ public:
 	void setTimings();
 	void addFilm(const string&, const string&, const int&, const int&);
 	void removeFilm(const string&);
+
+	Movie getMovie(int);
+	Hall getHall(int);
+	Session getSession(int);
 };
 

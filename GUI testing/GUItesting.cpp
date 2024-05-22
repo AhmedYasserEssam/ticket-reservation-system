@@ -20,14 +20,10 @@ GUItesting::~GUItesting()
 
 void GUItesting::DisplayMovies()
 {
-    Movie M[3];
-    M[0] = Movie("Cars 1", 2006, 120);
-    M[1] = Movie("Cars 2", 2011, 185);
-    M[2] = Movie("Cars 3", 2017, 190);
-
     for (int i = 0; i < 3; i++)
     {
-        Movie_button[i] = new QPushButton(QString::fromStdString(M[i].getTitle()), this);
+        Movie M = CINEMA.getMovie(i);
+        Movie_button[i] = new QPushButton(QString::fromStdString(M.getTitle()), this);
         Movie_button[i]->show();
         Movie_button[i]->setGeometry(120 + i * 200, 120, 170, 270);
     

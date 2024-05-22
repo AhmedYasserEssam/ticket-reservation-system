@@ -5,7 +5,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 
-#include "Movie.h"
+#include "Cinema.h"
 #include "ui_GUItesting.h"
 
 
@@ -26,4 +26,5 @@ private:
     QPushButton* Movie_button[3];
     QTabWidget* Days;
     QWidget* Day[3];
+    Cinema CINEMA;
 };

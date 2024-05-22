@@ -68,4 +68,19 @@ void Cinema::removeFilm(const string& title){
 	cout << "Movie does not exist in your list.";
 }
 
+Movie Cinema::getMovie(int n)
+{
+	return filmList[n];
+}
+
+Hall Cinema::getHall(int n)
+{
+	return halls[n];
+}
+
+Session Cinema::getSession(int)
+{
+	return slots[i];
+}
+
 
