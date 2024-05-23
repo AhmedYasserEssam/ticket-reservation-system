@@ -8,8 +8,7 @@
 using namespace std;
 
 
-class Hall
-{
+class Hall{
 	int rows, cols;
 	string id;
 	Seat** auditorium;

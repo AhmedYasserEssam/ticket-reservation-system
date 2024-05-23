@@ -5,10 +5,14 @@
 #include "Hall.h"
 
 
-Session::Session() {}
+Session::Session() 
+{
+	dayDate ="";
+
+}
 
 
-Session::Session(const Movie& f, const Hall& l, const string& dt){
+Session::Session( Movie& f, Hall& l, string dt){
 	film = f; location = l; dayDate = dt;
 	reservationCnt = 0; attendances = new Reservation[reservationCnt];
 }
@@ -53,7 +57,7 @@ string Session::getTiming() const{
 }
 
 
-int Session::getReservationCount(){
+int Session::getReservationCount() const {
 	return reservationCnt;
 }
 
@@ -83,30 +87,20 @@ int Session::calculateSeatsTaken(){
 }
 
 
-void Session::display() const
-{
-	cout << "Showtime: " << dayDate << endl;
-	cout << this->getMovie();
-}
 
-
-Session& Session::operator=(const Session& s){
-	if (this == &s) return *this;
-
-	delete[] attendances;
-
+void Session::operator=(const Session& s){
 	film = s.film;
 	location = s.location;
-	dateTime = s.dateTime;
+	dayDate = s.dayDate;
 	reservationCnt = s.reservationCnt;
 
-	if (s.attendances != nullptr){
+	if (s.attendances != nullptr)
+	{
 		attendances = new Reservation[reservationCnt];
 		for (int i = 0; i < reservationCnt; ++i) attendances[i] = s.attendances[i];
 	}
 	else attendances = nullptr;
 
-	return *this;
 }
 
 

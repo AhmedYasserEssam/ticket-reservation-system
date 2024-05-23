@@ -26,5 +26,5 @@ private:
     QPushButton* Movie_button[3];
     QTabWidget* Days;
     QWidget* Day[3];
-    Cinema CINEMA;
+    Cinema MainCinema;
 };

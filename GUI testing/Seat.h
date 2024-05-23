@@ -25,6 +25,6 @@ public:
 	bool getState() const;
 
 	//friend member ostream& operator<<(ostream& os, const Seat& s); 
-	void operator=(Seat&);
+	void operator=(const Seat&);
 };
 

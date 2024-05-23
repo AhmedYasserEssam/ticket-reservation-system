@@ -1,7 +1,7 @@
 #include "GUItesting.h"
 #include "Customer.h"
 #include "Movie.h"
-#include <ctime>
+#include "TimeTable.h"
 #include <QMessageBox>
 
 #pragma warning(disable : 4996)
@@ -22,7 +22,7 @@ void GUItesting::DisplayMovies()
 {
     for (int i = 0; i < 3; i++)
     {
-        Movie M = CINEMA.getMovie(i);
+        Movie M = MainCinema.getMovie(i);
         Movie_button[i] = new QPushButton(QString::fromStdString(M.getTitle()), this);
         Movie_button[i]->show();
         Movie_button[i]->setGeometry(120 + i * 200, 120, 170, 270);
@@ -38,20 +38,14 @@ void GUItesting::DisplayMovies()
 
 void GUItesting::DisplaySessions()
 {
-    auto ctime = time(nullptr);
-    const int daySeconds = 24 * 60 * 60;
+   
     Days = new QTabWidget(this);
-    for (int i = 0; i < 3; ++i)
+    for(int i = 0;i<3;i++)
     {
-
-        tm* nextDay = localtime(&ctime);
-        ctime += daySeconds;
-        char buffer[80];
-        strftime(buffer, 80, "%A", nextDay);
-        QString d = QString::fromStdString(std::string(buffer));
-
+        TimeTable schedule = MainCinema.getSchedule();
+        string name = schedule.getDayDate(2);
         Day[i] = new QWidget();
-        Days->addTab(Day[i], d);
+        Days->addTab(Day[i], QString::fromStdString(name));
         Day[i]->setGeometry(20 * (1 + i), 40, 20, 20);
         Movie_button[i]->hide(); 
     }

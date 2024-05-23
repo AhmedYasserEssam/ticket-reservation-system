@@ -3,7 +3,6 @@
 #include "Movie.h"
 #include "Hall.h"
 #include "Reservation.h"
-#include "Schedule.h"
 
 using namespace std;
 
@@ -17,7 +16,7 @@ class Session{
 
 public:
 	Session();
-	Session(const Movie&, const Hall&, const string&);
+	Session( Movie&,Hall&, string);
 
 	void setMovie(const Movie&);
 	void setHall(const Hall&);
@@ -28,12 +27,11 @@ public:
 	Hall getHall() const;
 	string getDayDate() const;
 	string getTiming() const;
-	int getReservationCount();
+	int getReservationCount() const;
 
 	void addReservation(const Reservation&);
 	void removeReservation(const string&);
 	int calculateSeatsTaken();
-	void display() const;
 
-	Session& operator=(const Session&);
+	void operator=(const Session&);
 };

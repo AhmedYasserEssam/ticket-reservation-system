@@ -77,11 +77,12 @@ bool Seat::getState() const {
 }
 
 
-void Seat::operator=(Seat& s2){
-	this->id = s2.getId();
-	this->price = s2.getPrice();
-	this->state = s2.getState();
+void Seat::operator=(const Seat& s2) {
+	id = s2.id;
+	price = s2.price;
+	state = s2.state;
 }
+
 
 
 

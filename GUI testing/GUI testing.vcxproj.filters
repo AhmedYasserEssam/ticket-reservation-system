@@ -61,16 +61,16 @@
     <ClCompile Include="Reservation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Schedule.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Seat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="Cinema.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Cinema.cpp">
+    <ClCompile Include="TimeTable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ticket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -102,10 +102,10 @@
     <ClInclude Include="Person.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Schedule.h">
+    <ClInclude Include="Cinema.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Cinema.h">
+    <ClInclude Include="TimeTable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
