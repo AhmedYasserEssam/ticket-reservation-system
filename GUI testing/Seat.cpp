@@ -4,7 +4,7 @@
 Seat::Seat(){
 	id = "";
 	price = 0.0;
-	state = 0;
+	state = 1;
 };
 
 

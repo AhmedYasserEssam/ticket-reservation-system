@@ -1,31 +1,29 @@
 #include "TimeTable.h"
-
 #include "Session.h"
 #include <chrono>
 #include <sstream>
 #include <iomanip>
 #include <ctime>
+#include <fstream>
+#include <iostream>
 
 
 #pragma warning(disable:4996)
 using namespace std;
 
-string TimeTable::getCurrentDateString(int daysOffset = 0) {
-    auto ctime = time(nullptr);
-    const int daySeconds = (24 * 60 * 60) * (daysOffset + 1);
-    tm* nextDay = localtime(&ctime);
-    char buffer[80];
-    strftime(buffer, 80, "%a", nextDay);
+string TimeTable::getCurrentDateString(int daysOffset) {
+        auto now = chrono::system_clock::now();
+        now += chrono::hours(24 * daysOffset);
+        time_t t = chrono::system_clock::to_time_t(now);
+        tm* tm_nextDay = gmtime(&t); // Use gmtime instead of localtime
 
-    auto now = chrono::system_clock::now();
-    now += chrono::hours(24 * daysOffset);
-    time_t t = chrono::system_clock::to_time_t(now);
-    tm* tm = localtime(&t);
+        char buffer[80];
+        strftime(buffer, 80, "%a", tm_nextDay);
 
-    ostringstream oss;
-    oss << put_time(tm, "%d/%m");
-    return oss.str() + " " + string(buffer);
-}
+        ostringstream oss;
+        oss << put_time(tm_nextDay, "%d/%m");
+        return oss.str() + " " + string(buffer);
+    }
 
 
 TimeTable::TimeTable()
@@ -64,41 +62,58 @@ string TimeTable::getDayDate(int dayIndex) const {
     return startDate[dayIndex];
 }
 
-const Session& TimeTable::getTime(int dayIndex, int slotIndex) const
+Session TimeTable::getTime(int dayIndex, int slotIndex) const
 {
     return showtime[dayIndex][slotIndex];
 }
 
-void TimeTable::addShow(const Session& St, int dayIndex)
+void TimeTable::addShow(Session St, int dayIndex,int sessionIndex)
 {
     if (dayIndex > 0 || dayIndex <= DAYS || showtimeCounts[dayIndex] <= DAILY_MAX_SHOWTIMES)
-        showtime[dayIndex][showtimeCounts[dayIndex]++] = St;
-
-}
-
-bool TimeTable::removeShowtime(string title, string dateTime) {
-    for (int i = 0; i < DAYS; ++i) {
-        for (int j = 0; j < showtimeCounts[i]; ++j) {
-            if (showtime[i][j].getMovie().getTitle() == title &&
-                showtime[i][j].getDayDate() == dateTime) {
-                for (int k = j; k < showtimeCounts[i] - 1; ++k) {
-                    showtime[i][k] = showtime[i][k + 1];
+    {
+        Hall h = St.getHall();
+        /*string filename = "Session" + to_string(dayIndex) + "-" + to_string(sessionIndex) + ".txt";
+        ifstream file(filename);
+        string line;
+        Seat chair;
+        int lnum = 0;
+        if (file.is_open());
+        {
+            while (getline(file,line))
+            {
+                if (line == "1")
+                {
+                    if (lnum < 10)
+                    {
+                        chair = h.getSeat(0, lnum);
+                        chair.setState(false);
+                    }
+                    else
+                    {
+                        chair = h.getSeat(lnum / 10, lnum % 10);
+                        chair.setState(false);
+                    }
+            
                 }
-                showtimeCounts[i]--;
-                return true;
+                lnum++;
+
             }
         }
+        file.close();*/
+        showtime[dayIndex][sessionIndex] = St;
     }
-    return false;
 }
-//
-//void Schedule::listShowtimes() const
-//{
-//    for (int i = 0; i < DAYS; ++i) {
-//        cout << "Date: " << startDate[i] << "\n";
-//        for (int j = 0; j < showtimeCounts[i]; ++j) {
-//            showtime[i][j].display();
-//        }
-//    }
-//}
+
+void TimeTable::operator=(TimeTable other)
+{
+    int days = other.getDays();
+    int maxShowtimes = other.getDailyMaxShowtimes();
+    for (int i = 0; i < days; ++i) {
+        for (int j = 0; j < maxShowtimes; ++j) {
+            Session session = other.getTime(i, j);
+            addShow(session, i, j);
+        }
+    }
+}
+
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <cctype>
 
 using namespace std;
 
@@ -21,7 +22,7 @@ public:
 
 	bool operator==(const Customer&);
 
-	friend istream& operator>>(istream&, Customer&);
+	bool isValidEmail(const string& email);
 	friend ostream& operator<<(ostream&, Customer&);
 };
 

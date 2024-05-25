@@ -8,7 +8,8 @@
 using namespace std;
 
 
-class Hall{
+class Hall
+{
 	int rows, cols;
 	string id;
 	Seat** auditorium;
@@ -25,6 +26,12 @@ public:
 	bool isAvailable(const string&);
 	void bookSeat(const string&);
 	void freeSeat(const string&);
+
+	Seat& getSeat(int,int);
+	int getSize();
+	string getID();
+
+	bool operator ==(const Hall&);
 	//void setFilmCnt(int);
 	//void setShowtimeCnt(int);
 

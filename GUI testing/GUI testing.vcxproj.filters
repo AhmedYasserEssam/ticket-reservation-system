@@ -99,14 +99,14 @@
     <ClInclude Include="Reservation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Person.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Cinema.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TimeTable.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Person.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

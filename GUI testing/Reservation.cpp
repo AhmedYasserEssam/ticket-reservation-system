@@ -2,21 +2,22 @@
 
 
 Reservation::Reservation(){
-	seatCnt = 0; orderID = "H000";
-	client; film; reserved = new Seat[seatCnt];
-}
-
-
-Reservation::Reservation(const int& orderID, const Customer& client, const Movie& film){
-	this->seatCnt = seatCnt;
-	this->orderID = orderID;
-	this->client = client;
-	this->film = film;
+	orderID = "H000";
+	client; film; 
+	seatCnt = 1;
 	reserved = new Seat[seatCnt];
 }
 
 
-void Reservation::setSeatCnt(const int& seatCnt){
+Reservation::Reservation(const string& orderID, const Movie& film, const int& seatCnt){
+	this->orderID = orderID;
+	this->film = film;
+	this->seatCnt = seatCnt;
+	reserved = new Seat[seatCnt];
+}
+
+
+void Reservation::setSeatCnt(const int& seatCnt) {
 	this->seatCnt = seatCnt;
 }
 
@@ -36,9 +37,9 @@ void Reservation::setFilm(const Movie& film){
 }
 
 
-void Reservation::setReserved(Seat* reserved){
-	this->reserved = reserved;
-}
+//void Reservation::setReserved(Seat* reserved){
+//	this->reserved = reserved;
+//}
 
 
 int Reservation::getSeatCnt() const{
@@ -61,53 +62,51 @@ Movie Reservation::getFilm() const{
 }
 
 
-Seat* Reservation::getReserved() const{
-	return reserved;
+string Reservation::getReserved(int n) const {
+	return reserved[n].getId();
 }
 
 
-void Reservation::changeSeat(const string& idIn, const string& idOut){
-	for (int i = 0; i < seatCnt; ++i) 
-	{
-		if (reserved[i].getId() == idOut)
-		{
-			reserved[i].setState(true);
-		}
-		if (reserved[i].getId() == idIn)
-		{
-			reserved[i].setState(false);
-		}
-	}
-}
+//void Reservation::changeSeat(const string& idIn, const string& idOut){
+//	for (int i = 0; i < seatCnt; ++i) 
+//	{
+//		if (reserved[i].getId() == idOut)
+//		{
+//			reserved[i].setState(true);
+//		}
+//		if (reserved[i].getId() == idIn)
+//		{
+//			reserved[i].setState(false);
+//		}
+//	}
+//}
 
-/*
-void Reservation::addSeat(char ID,int num)
+
+void Reservation::addSeat(Seat& s, int index)
 { 
-	seatCnt++;
-	reserved[seatCnt - 1] = Seat(ID, num, false);
-}
-*/
-
-
-void Reservation::removeSeat(const string& ID){
-	for (int i = 0; i < seatCnt; ++i) {
-		if (reserved[i].getId() == ID) {
-			reserved[i].setState(true); // freeSeat()?
-			for (int j = i; j < seatCnt - 1; ++j) {
-				reserved[j] = reserved[j + 1];
-			}
-		}
-	}
-	seatCnt--;
+	reserved[index] = s;
 }
 
 
-void Reservation::cancelReservation(){
-	for (int i = 0; i < seatCnt; ++i) {
-		reserved[i].setState(true);
-	}
-	delete[] reserved; //destructor?//
-}
+//void Reservation::removeSeat(const string& ID){
+//	for (int i = 0; i < seatCnt; ++i) {
+//		if (reserved[i].getId() == ID) {
+//			reserved[i].setState(true); // freeSeat()?
+//			for (int j = i; j < seatCnt - 1; ++j) {
+//				reserved[j] = reserved[j + 1];
+//			}
+//		}
+//	}
+//	seatCnt--;
+//}
+
+
+//void Reservation::cancelReservation(){
+//	for (int i = 0; i < seatCnt; ++i) {
+//		reserved[i].setState(true);
+//	}
+//	delete[] reserved; //destructor?//
+//}
 
 
 Reservation::~Reservation(){

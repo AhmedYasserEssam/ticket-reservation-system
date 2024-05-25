@@ -9,26 +9,21 @@
 class Cinema {
 	Movie* filmList; int filmCnt;
 	Hall halls[3];
-	TimeTable tt;
-	string times[3];
-
 	
+	string times[3];
+	TimeTable tt;
 
 public:
+	
 	Cinema();
 	
 	int getFilmCnt() const;
 	int getHallsCnt() const;
 	int getTimesCnt() const;
 
-
-	void setTimings();
 	void addFilm(const string&, const string&, const int&, const int&);
 	void removeFilm(const string&);
 
-
-	Movie getMovie(int);
-	Hall getHall(int);
 	TimeTable getSchedule();
 };
 

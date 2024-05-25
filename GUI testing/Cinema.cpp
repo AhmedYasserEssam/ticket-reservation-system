@@ -1,47 +1,68 @@
 #include "Cinema.h"
 #include "Session.h"
+#include <iostream>
+#include <fstream>
+using namespace std;
 
 
-Cinema::Cinema() {
-	times[0] = { "10:00 AM" }; times[1] = { "2:30 PM" }; times[2] = { "6:15 PM" };
+Cinema::Cinema()
+{
+	times[0] = "10:00 AM";
+	times[1] = "2:30 PM";
+	times[2] = "6:15 PM";
+
 
 	filmCnt = 3; filmList = new Movie[filmCnt];
-	filmList[0] = Movie("Ashoush 1", "Action", 2005, 120);
-	filmList[1] = Movie("Ashoush 2", "Action", 2006, 120);
-	filmList[2] = Movie("Ashoush 3", "Action", 2007, 120);
+	filmList[0] = Movie("Cars 1", "Action", 2005, 120);
+	filmList[1] = Movie("Godzilla X kong", "Action", 2024, 120);
+	filmList[2] = Movie("Al Serb", "Action", 2024, 120);
 
-	halls[0] = Hall(10, 10, "H-01");
-	halls[1] = Hall(6, 6, "H-02");
-	halls[2] = Hall(10, 10, "H-03");
-
-	for (int i = 0; i < tt.getDays(); i++)
+	halls[0] = Hall(10, 10, "H-1");
+	halls[1] = Hall(6, 6, "H-2");
+	halls[2] = Hall(10, 10, "H-3");
+	string filename = "Sessionss.txt";
+	ofstream file(filename);
+	if (file.is_open())
 	{
-		for (int j = 0; j < filmCnt; j++)
+		for (int i = 0; i < tt.getDays(); i++)
 		{
-			for (int k = 0; k < filmCnt; k++)
+			tt.getCurrentDateString(i);
+			for (int j = 0; j < filmCnt; j++)
 			{
-				Session s(filmList[k], halls[k], tt.getDayDate(i));
-				tt.addShow(s, i);
+				for (int k = 0; k < filmCnt; k++)
+				{
+
+					Session s(filmList[i], halls[k], tt.getDayDate(j), times[k]);
+					tt.addShow(s, i, ((j * filmCnt) + k) % 10);
+				}
 			}
 		}
 	}
 }
 
 
-void Cinema::setTimings()
-{
-	for (int i = 0; i < tt.getDays(); ++i) {
-		for (int j = 0; j < tt.getDailyMaxShowtimes(); ++j)
-		{
-			Session s = tt.getTime(i, j);
-			if ( s.getDayDate() == "" && j >= 0 && j <= 2)
-				s.setTiming(times[0]);
-			else if (s.getDayDate() == "" && j >= 3 && j <= 5)
-				s.setTiming(times[1]);
-			else s.setTiming(times[2]);
-		}
-	}
-}
+//void Cinema::setTimings()
+//{
+//	times[0] = { "10:00 AM" }; times[1] = { "2:30 PM" }; times[2] = { "6:15 PM" };
+//	for (int i = 0; i < tt.getDays(); ++i) {
+//		for (int j = 0; j < tt.getDailyMaxShowtimes(); ++j)
+//		{
+//			Session s = tt.getTime(i, j);
+//			if (j <= 2)
+//			{
+//				s.setTiming(times[0]);
+//			}
+//			else if (j >= 3 && j <= 5)
+//			{
+//				s.setTiming(times[1]);
+//			}
+//			else
+//			{
+//				s.setTiming(times[2]);
+//			}
+//		}
+//	}
+//}
 
 
 int Cinema::getFilmCnt() const{
@@ -74,16 +95,6 @@ void Cinema::removeFilm(const string& title){
 		}
 	}
 	cout << "Movie does not exist in your list.";
-}
-
-Movie Cinema::getMovie(int n)
-{
-	return filmList[n];
-}
-
-Hall Cinema::getHall(int n)
-{
-	return halls[n];
 }
 
 TimeTable Cinema::getSchedule()

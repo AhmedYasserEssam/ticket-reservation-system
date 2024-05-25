@@ -14,7 +14,7 @@ class Seat{
 public:
 	Seat();
 	Seat(char, int);
-	//Seat(char, int, bool);
+	Seat(int, int, bool);
 
 	void setId(const string&);
 	void setPrice(const float&);

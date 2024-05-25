@@ -5,18 +5,15 @@
 #include "Hall.h"
 
 
-Session::Session() 
+Session::Session(){}
+Session::Session(Movie& f, Hall& l, string dt, string time)
 {
-	dayDate ="";
-
+	film = f;
+	location = l;
+	dayDate = dt;
+	attendances = new Reservation[reservationCnt];
+	timing = time;
 }
-
-
-Session::Session( Movie& f, Hall& l, string dt){
-	film = f; location = l; dayDate = dt;
-	reservationCnt = 0; attendances = new Reservation[reservationCnt];
-}
-
 
 void Session::setMovie(const Movie& film){
 	this->film = film;
@@ -32,9 +29,9 @@ void Session::setDayDate(const string& dateTime){
 	this->dayDate = dateTime;
 }
 
-void Session::setTiming(const string& timing){
-	this->timing = timing;
-}
+//void Session::setTiming(const string& timing){
+//	this->timing = timing;
+//}
 
 
 Movie Session::getMovie() const{
@@ -63,8 +60,8 @@ int Session::getReservationCount() const {
 
 
 void Session::addReservation(const Reservation& r){
-	reservationCnt++;
 	attendances[reservationCnt - 1] = r;
+	reservationCnt++;
 }
 
 
@@ -92,6 +89,7 @@ void Session::operator=(const Session& s){
 	film = s.film;
 	location = s.location;
 	dayDate = s.dayDate;
+	timing = s.timing;
 	reservationCnt = s.reservationCnt;
 
 	if (s.attendances != nullptr)
@@ -101,6 +99,18 @@ void Session::operator=(const Session& s){
 	}
 	else attendances = nullptr;
 
+}
+
+bool Session::operator==(const Session& s)
+{
+	if (this->getMovie().getTitle() == s.getMovie().getTitle() && this->getHall().getID() == s.getHall().getID() && this->getTiming() == s.getTiming() && this->getDayDate() == s.getDayDate())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 

@@ -2,11 +2,10 @@
 
 
 Hall::Hall() {
-	rows = 10, cols = 10; id = "H-00";
+	rows = 10, cols = 10; id = "H-0";
 	auditorium = new Seat * [rows];
 	char i = 'A';
-	int k = 0;
-	for (k; k < rows; ++i, ++k)
+	for (int k = 0; k < rows; ++i, ++k)
 	{
 		auditorium[k] = new Seat[cols];
 		for (int j = 1, l = 0; l < cols; ++j, ++l)
@@ -14,7 +13,6 @@ Hall::Hall() {
 			auditorium[k][l] = Seat(i, j);
 		}
 	}
-
 	//filmCnt = 3; showtimeCnt = 6;
 	//filmList = new Movie[currentFilmCnt]; showtimes = new string[currentShowtimeCnt]; schedule = new Movie[currentShowtimeCnt];
 }
@@ -99,7 +97,7 @@ void Hall::bookSeat(const string& id)
 			{
 				cout<< auditorium[i][j].getId();
 				auditorium[i][j].setState(false);
-				cout <<"	 " << "Seat was successfully booked!\n";
+				
 			}
 		}
 	}
@@ -118,6 +116,33 @@ void Hall::freeSeat(const string& id){
 		}
 	}
 	cout << "Cannot unbook an already free seat.\n";
+}
+
+Seat& Hall::getSeat(int x, int y)
+{
+	return auditorium[x][y];
+}
+
+int Hall::getSize()
+{
+	return rows;
+}
+
+string Hall::getID()
+{
+	return id;
+}
+
+bool Hall::operator==(const Hall& h)
+{
+	if (this->getID() == h.id)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 /*

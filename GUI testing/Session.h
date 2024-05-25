@@ -12,20 +12,21 @@ class Session{
 	Hall location;
 	string dayDate;
 	string timing;
-	Reservation* attendances; int reservationCnt;
+	Reservation* attendances; int reservationCnt = 1;
 
 public:
 	Session();
-	Session( Movie&,Hall&, string);
+	Session( Movie&,Hall&, string,string);
 
 	void setMovie(const Movie&);
 	void setHall(const Hall&);
 	void setDayDate(const string&);
-	void setTiming(const string&);
+	/*void setTiming(const string&);*/
 
 	Movie getMovie() const;
 	Hall getHall() const;
 	string getDayDate() const;
+
 	string getTiming() const;
 	int getReservationCount() const;
 
@@ -34,4 +35,5 @@ public:
 	int calculateSeatsTaken();
 
 	void operator=(const Session&);
+	bool operator==(const Session&);
 };
