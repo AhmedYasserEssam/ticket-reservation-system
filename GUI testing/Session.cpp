@@ -76,15 +76,6 @@ void Session::removeReservation(const string& id){
 	reservationCnt--;
 }
 
-
-int Session::calculateSeatsTaken(){
-	int seatsTaken = 0;
-	for (int i = 0; i < reservationCnt; ++i) seatsTaken += attendances[i].getSeatCnt();
-	return seatsTaken;
-}
-
-
-
 void Session::operator=(const Session& s){
 	film = s.film;
 	location = s.location;

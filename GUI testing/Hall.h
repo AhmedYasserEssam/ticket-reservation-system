@@ -14,10 +14,6 @@ class Hall
 	string id;
 	Seat** auditorium;
 	 
-	//int filmCnt, showtimeCnt;  //limit per hall object//
-	//int currentFilmCnt = 0, currentShowtimeCnt = 0;
-	//string* showtimes; //chronological order expected//
-	//Movie* schedule;
 
 public:
 	Hall();
@@ -25,27 +21,11 @@ public:
 
 	bool isAvailable(const string&);
 	void bookSeat(const string&);
-	void freeSeat(const string&);
 
 	Seat& getSeat(int,int);
 	int getSize();
 	string getID();
 
 	bool operator ==(const Hall&);
-	//void setFilmCnt(int);
-	//void setShowtimeCnt(int);
-
-	//int getFilmCnt() const;
-	//int getShowtimeCnt() const;
-	//int getCurrentFilmCnt() const;
-	//int getCurrentShowtimeCnt() const;
-
-	//float checkPrice(string);
-
-	//void addMovieToList(Movie&);
-	//void addShowtime(string&);
-	//void removeMovieFromList(Movie&);
-	//void removeShowtime(string&);
-	//void changeScheduleSlot(Movie, string&);
 };
 

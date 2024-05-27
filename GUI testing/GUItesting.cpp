@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <fstream>
+#include <sstream>
 #include "GUItesting.h"
 #include "Customer.h"
 #include "Movie.h"
@@ -50,8 +51,9 @@ GUItesting::GUItesting(QWidget* parent) : QMainWindow(parent)
     int y = 30;
     Header->setGeometry(x, y, labelWidth, labelHeight);
 
-
+    connect(Admin, &QPushButton::clicked, this, &GUItesting::getAdminPassword);
     connect(tickets, &QPushButton::clicked, this, &GUItesting::DisplayMovies);
+ 
     ReturnButton = new QPushButton(this);
     ReturnButton->hide();
     ReturnButton->setIcon(rbutton);
@@ -66,11 +68,17 @@ GUItesting::~GUItesting()
 
 void GUItesting::DisplayMovies()
 {
+    
     QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
-    if (clickedButton)
+    if (clickedButton->text( ) == tickets->text())
+    {
+        Interface = false;
+        
+    }
+    else
     {
         delete Days;
-        Days = nullptr;   
+        Days = nullptr;
     }
     ReturnButton->show();
     connect(ReturnButton, &QPushButton::clicked, this, &GUItesting::MainMenu);
@@ -86,14 +94,52 @@ void GUItesting::DisplayMovies()
         connect(Movie_button[i], &QPushButton::clicked, this, &GUItesting::DisplaySessions);
 
     }
+    if (Interface)
+    {
+        int width = 200;
+        int height = 30;
+        int x = (this->width() - width) / 2;
+        int y = (this->height() - height) / 2;
+        EditMovie = new QPushButton("Edit Movie", this);
+        EditMovie->setGeometry(x, y +200, width, height);
+       // EditMovie->show();
+        connect(EditMovie, &QPushButton::clicked, this, &GUItesting::ChangeMovie);
+    }
+    
     Admin->hide();
     tickets->hide();
     Header->setText("Choose A Movie");
    
 }
 
+void GUItesting::getAdminPassword()
+{
+    QString styleSheet = "QLineEdit {" "background-color: #f0f0f0;" "border: 1px solid #ccc;" "border-radius: 5px;" "padding: 5px;""}";
+    adminConfirm = new QPushButton("Login", this);
+
+    Admin->hide();
+
+
+    tickets->hide();
+    int width = 200;
+    int height = 30;
+    int x = (this->width() - width) / 2;
+    int y = (this->height() - height) / 2;
+
+    AdminPassword= new QLineEdit(this);
+    AdminPassword->setEchoMode(QLineEdit::Password);
+    AdminPassword->setPlaceholderText("Admin Password ");
+    adminConfirm->show();
+    AdminPassword->show();
+    AdminPassword->setGeometry(x, y - 130, width, height);
+    adminConfirm->setGeometry(x, y - 90, width, height);
+    AdminPassword->setStyleSheet(styleSheet);
+    connect(adminConfirm, &QPushButton::clicked, this, &GUItesting::pswrdConfirmation);
+
+}
 void GUItesting::DisplaySessions()
 {
+    Header->setText("Choose Time");
     QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
     int hsize = h.getSize();
     if (clickedButton->text() == ReturnButton->text())
@@ -113,6 +159,7 @@ void GUItesting::DisplaySessions()
             Chairs = nullptr;
             MovieName = slot.getMovie().getTitle();
         }
+        Confirm->hide();
     }
     else
     {
@@ -160,6 +207,8 @@ void GUItesting::DisplaySessions()
 
 void GUItesting::MainMenu()
 {
+    delete Days;
+    Days = nullptr;
     for (int i = 0; i < 3; i++)
     {
         delete Movie_button[i];
@@ -173,10 +222,12 @@ void GUItesting::MainMenu()
 
 void GUItesting::DisplayHall()
 {
+    Header->setText("Choose Seats");
     QMessageBox msg;
     
     Confirm = new QPushButton("Confirm", this);
     Confirm->show();
+    Confirm->setGeometry(910, 10, 80, 30);
     connect(Confirm, &QPushButton::clicked, this, &GUItesting::BookTickets);
     connect(ReturnButton, &QPushButton::clicked, this, &GUItesting::DisplaySessions);
 
@@ -207,13 +258,10 @@ void GUItesting::DisplayHall()
         }
     }
 
-
-    
-
     slot = schedule.getTime(indix, indiy);
     h = slot.getHall();
     
-    int hsize = h.getSize();
+    hsize = h.getSize();
    
     Chairs = new QPushButton * *[hsize];
 
@@ -249,13 +297,25 @@ void GUItesting::DisplayHall()
         Chairs[i] = new QPushButton * [hsize];
         for (int j = 0;  j < hsize; j++)
         {
+            if (hsize != 10)
+            {
+                float price_updated = h.getSeat(i, j).getPrice() * 1.4;
+                h.getSeat(i, j).setPrice(price_updated);
+            }
             Seat chair = h.getSeat(i, j);
             QString seatId = QString::fromStdString(chair.getId());
             Chairs[i][j] = new QPushButton(seatId, this);
             if (chair.getState() == false)
             {
                 Chairs[i][j]->setIcon(rseat);
-                Chairs[i][j]->setEnabled(0);
+                if (Interface == false)
+                {
+                    Chairs[i][j]->setEnabled(0);
+                }
+                else
+                {
+                    connect(Chairs[i][j], &QPushButton::clicked, this, &GUItesting::rSelected);
+                }
             }
             else
             {
@@ -269,7 +329,11 @@ void GUItesting::DisplayHall()
             int xPos = (j+5) * seatWidth;
             int yPos = (i+2.5) * seatHeight;
 
-            // Set the geometry of the button
+            if(hsize != 10)
+            {
+                xPos += 90;
+                yPos += 50;
+            }
             Chairs[i][j]->setGeometry(xPos, yPos, seatWidth, seatHeight);
 
             // Show the button
@@ -286,12 +350,19 @@ void GUItesting::DisplayHall()
   
 
 }
-
+    
 void GUItesting::Select()
 {
     QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
     clickedButton->setIcon(seseat);
     connect(clickedButton, &QPushButton::clicked, this, &GUItesting::Deselect);
+}
+
+void GUItesting::rSelected()
+{
+    QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
+    clickedButton->setIcon(seseat);
+    connect(clickedButton, &QPushButton::clicked, this, &GUItesting::rDeselect);
 }
 
 void GUItesting::Deselect()
@@ -303,11 +374,19 @@ void GUItesting::Deselect()
     
 }
 
-void GUItesting::BookTickets()
+void GUItesting::rDeselect()
 {
+    QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
+    clickedButton->setIcon(rseat);
+    connect(clickedButton, &QPushButton::clicked, this, &GUItesting::rSelected);
+}
+
+void GUItesting::BookTickets()
+{   
+    Money = new QLabel("Total Basket", this);
     connect(ReturnButton, &QPushButton::clicked, this, &GUItesting::MainMenu);
     QMessageBox msg;
-    int hsize = h.getSize();
+    hsize = h.getSize();
     Seat s;
     int numReserves = 0;
 
@@ -315,6 +394,7 @@ void GUItesting::BookTickets()
     string num = std::to_string(randomNumber);
     HallIdentifier = h.getID()[0]; HallIdentifier += h.getID()[2]; HallIdentifier += num;
 
+    
     for (int i = 0; i < hsize; i++)
     {
         for (int j = 0; j < hsize; j++)
@@ -343,10 +423,16 @@ void GUItesting::BookTickets()
             QPixmap seseatPixmap = seseat.pixmap(seseat.actualSize(QSize(100, 100)));
             bool validity = btnPixmap.toImage() == seseatPixmap.toImage();
             if (validity)
-            {
-                s = h.getSeat(i, j);
-                h.getSeat(i, j).setState(false);
-                reservedChair->addSeat(s, placingIndex++);
+            { 
+                if (Interface)
+                {
+                    h.getSeat(i, j).setState(true);
+                }
+                else
+                {
+                    h.getSeat(i, j).setState(false);
+                }
+                reservedChair->addSeat(h.getSeat(i, j), placingIndex++);
             }
         }
     }
@@ -369,8 +455,8 @@ void GUItesting::BookTickets()
             }
         }
     }
-    string fname = "Session" + to_string(indix) + "-" + to_string(indiy) + ".txt";
-    ofstream file(fname);
+    sessionfile = "Session" + to_string(indix) + "-" + to_string(indiy) + ".txt";
+    ofstream file(sessionfile);
     if (file.is_open())
     {
         for (int i = 0; i < hsize; i++)
@@ -400,35 +486,81 @@ void GUItesting::BookTickets()
             Chairs = nullptr;
         }
     }
+
+    string price = "The Total Price:  " + to_string(reservedChair->calcTotalPrice()) ;
+    Money->setText(QString::fromStdString(price));
     delete Confirm;
     Confirm = nullptr;
-    delete Days;
 
-    Days = nullptr;
+    if (Interface == false)
+    {
+        CreateCustomer();
+    }
+    else
+    {
+        QMessageBox::StandardButton reply;
+        reply = QMessageBox::question(this, "Confirmation", "Are you sure you want to free these seats?",QMessageBox::Yes | QMessageBox::No);
+ 
+        if (reply == QMessageBox::Yes)
+        {
+            int x = reservedChair->getSeatCnt();
 
-    CreateCustomer();
+            ofstream file(sessionfile);
+            if (file.is_open())
+            {
+                for (int i = 0; i < hsize; i++)
+                {
+                    for (int j = 0; j < hsize; j++)
+                    {
+                        for (int z = 0; z < x; z++)
+                        {
+                            if (reservedChair->getReserved(z) == h.getSeat(i, j).getId())
+                            {
+                                    h.getSeat(i, j).setState(true);
+                            }
+                        }
+                        file << h.getSeat(i, j).getState();
+                        file << endl;
+                    }
+                }
+            }
+        }
+        MainMenu();
+    }
 }
 
 
 void GUItesting::CreateCustomer()
 {
+    Header->setText("Payment");
+
     int width = 200;
     int height = 30;
     int x = (this->width() - width) / 2;
     int y = (this->height() - height) / 2;
     QString styleSheet = "QLineEdit {" "background-color: #f0f0f0;" "border: 1px solid #ccc;" "border-radius: 5px;" "padding: 5px;""}";
-    Customer C;
 
     Namebar = new QLineEdit(this);
     Email = new QLineEdit(this);
     CardNumber = new QLineEdit(this);
     CardHolder = new QLineEdit(this);
+    Month = new QComboBox(this);
+    Year = new QComboBox(this);
+    Payment = new QPushButton("Confrim Payment",this);
+    cancel = new QPushButton("Cancel", this);
 
+    for (int i = 1; i <= 12; ++i) { Month->addItem(QString("%1").arg(i, 2, 10, QChar('0')));}
+    for (int i = 2024; i <= 2032; ++i) {Year->addItem(QString::number(i));}
 
     Namebar->show();
     Email->show();
     CardNumber->show();
     CardHolder->show();
+    Money->show();
+    Month->show();
+    Year->show();
+    Payment->show();
+    cancel->show();
 
     Namebar->setPlaceholderText("Name: ");
     Email->setPlaceholderText("E-mail: ");
@@ -441,14 +573,163 @@ void GUItesting::CreateCustomer()
     CardHolder->setStyleSheet(styleSheet);
 
 
-    C.setName(Namebar->text().toStdString());
-    
     Namebar->setGeometry(x, y-250, width, height);
     Email->setGeometry(x, y-210, width, height);
     CardNumber->setGeometry(x, y - 170, width, height);
     CardHolder->setGeometry(x, y - 130, width, height);
+    Money->setGeometry(x, y - 50, width, height);
+    Month->setGeometry(x, y-90, 50, 30);
+    Year->setGeometry(x+70, y-90, 50, 30); 
+    Payment->setGeometry(x, y - 50, width, height);
+    Payment->setGeometry(x, y - 50, width, height);
+    cancel->setGeometry(x, y - 10, width, height);
+    connect(Payment, &QPushButton::clicked, this, &GUItesting::ConfirmPayment);
+    connect(cancel, &QPushButton::clicked, this, &GUItesting::CancelReservation);
+  
+}
 
-   // QMessageBox msg;
-    //msg.setText(QString::fromStdString(C.getName()));
-    //msg.exec();
+void GUItesting::ConfirmPayment()
+{
+    
+    QMessageBox msg;
+    msg.setText("Reservation Done");
+    msg.exec();
+
+    Namebar->hide();
+    Email->hide();
+    CardNumber->hide();
+    CardHolder->hide();
+    Money->hide();
+    Month->hide();
+    Year->hide();
+    Payment->hide();
+    cancel->hide();
+    MainMenu();
+    
+}
+
+void GUItesting::CancelReservation()
+{
+    
+    QMessageBox::StandardButton reply;
+        reply = QMessageBox::question(this, "Confirmation", "Are you sure you want to cancel your reservation?",
+            QMessageBox::Yes | QMessageBox::No);
+    
+    
+  
+
+    if (reply == QMessageBox::Yes)
+    {
+        int x = reservedChair->getSeatCnt();
+        
+        
+        ofstream file(sessionfile);
+        if (file.is_open())
+        {
+            for (int i = 0; i < hsize; i++)
+            {
+                for (int j = 0; j < hsize; j++)
+                {
+                    for (int z = 0; z < x; z++)
+                    {
+                        if (reservedChair->getReserved(z) == h.getSeat(i, j).getId())
+                        {
+                           h.getSeat(i, j).setState(true);
+                        }
+                    }
+                    file << h.getSeat(i, j).getState();
+                    file << endl;
+                }
+            }
+        }
+
+    }
+}
+
+void GUItesting::pswrdConfirmation()
+{
+    QMessageBox error;
+    if (AdminPassword->text().toStdString() == "123")
+    {
+        error.setText("Welcome Admin");
+        error.exec();
+        adminConfirm->hide();
+        AdminPassword->hide();
+        Interface = true;
+        DisplayMovies();
+    }
+    else
+    {
+        error.setText("Not An Admin");
+        error.exec();
+        MainMenu();
+        delete adminConfirm;
+        delete AdminPassword;
+    }
+}
+
+void GUItesting::ChangeMovie()
+{
+    int width = 200;
+    int height = 30;
+    int x = (this->width() - width) / 2;
+    int y = (this->height() - height) / 2;
+    delete EditMovie;
+    for (int i = 0; i < 3; i++)
+    {
+        delete Movie_button[i];
+        Movie_button[i] = nullptr;
+    }
+
+    movies = new QComboBox(this);
+    NewMovie = new QLineEdit(this);
+    Submit = new QPushButton("Submit Movie", this);
+
+    QString styleSheet = "QLineEdit {" "background-color: #f0f0f0;" "border: 1px solid #ccc;" "border-radius: 5px;" "padding: 5px;""}";
+    NewMovie->setPlaceholderText("Movie Name ");
+    NewMovie->setStyleSheet(styleSheet);
+
+    string filePath = "MovieList.txt";
+    ifstream file(filePath);
+    string line;
+    if (file.is_open())
+    {
+        while (getline(file, line))
+        {
+            istringstream iss(line);
+            string title, genre;
+            int year, duration;
+
+            // Assuming the title does not contain spaces
+            iss >> title >> genre >> year >> duration;
+
+            // Convert std::string to QString and add to the combo box
+            QString qTitle = QString::fromStdString(title);
+            movies->addItem(qTitle);
+        }
+        file.close();
+        movies->show();
+        movies->setGeometry(x, y - 200, width, height);
+        NewMovie->setGeometry(x, y - 150, width, height);
+        Submit->setGeometry(x, y - 100, width, height);
+        Submit->show();
+        connect(Submit, &QPushButton::clicked, this, &GUItesting::submitName);
+        NewMovie->show();
+
+    }
+
+
+}
+
+void GUItesting::submitName()
+{
+    int currentIndex = movies->currentIndex();
+    QMessageBox msg;
+    msg.setText(NewMovie->text());
+    msg.exec();
+    msg.setText(QString::number(currentIndex));
+    msg.exec();
+    Movie_button[currentIndex]->setText(NewMovie->text());
+    MainMenu();
+   
 }

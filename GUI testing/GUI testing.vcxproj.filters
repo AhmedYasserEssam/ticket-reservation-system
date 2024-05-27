@@ -73,6 +73,9 @@
     <ClCompile Include="Ticket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CreditCard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Session.h">
@@ -107,6 +110,9 @@
     </ClInclude>
     <ClInclude Include="Person.h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CreditCard.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

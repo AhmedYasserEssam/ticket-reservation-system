@@ -9,12 +9,11 @@ using namespace std;
 class Seat{
 	string id;
 	float price;
-	bool state; //true = not reserved//
+	bool state;
 
 public:
 	Seat();
 	Seat(char, int);
-	Seat(int, int, bool);
 
 	void setId(const string&);
 	void setPrice(const float&);

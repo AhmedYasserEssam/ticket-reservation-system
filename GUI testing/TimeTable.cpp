@@ -72,34 +72,6 @@ void TimeTable::addShow(Session St, int dayIndex,int sessionIndex)
     if (dayIndex > 0 || dayIndex <= DAYS || showtimeCounts[dayIndex] <= DAILY_MAX_SHOWTIMES)
     {
         Hall h = St.getHall();
-        /*string filename = "Session" + to_string(dayIndex) + "-" + to_string(sessionIndex) + ".txt";
-        ifstream file(filename);
-        string line;
-        Seat chair;
-        int lnum = 0;
-        if (file.is_open());
-        {
-            while (getline(file,line))
-            {
-                if (line == "1")
-                {
-                    if (lnum < 10)
-                    {
-                        chair = h.getSeat(0, lnum);
-                        chair.setState(false);
-                    }
-                    else
-                    {
-                        chair = h.getSeat(lnum / 10, lnum % 10);
-                        chair.setState(false);
-                    }
-            
-                }
-                lnum++;
-
-            }
-        }
-        file.close();*/
         showtime[dayIndex][sessionIndex] = St;
     }
 }

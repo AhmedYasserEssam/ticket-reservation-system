@@ -21,7 +21,6 @@ public:
 	void setMovie(const Movie&);
 	void setHall(const Hall&);
 	void setDayDate(const string&);
-	/*void setTiming(const string&);*/
 
 	Movie getMovie() const;
 	Hall getHall() const;
@@ -32,7 +31,6 @@ public:
 
 	void addReservation(const Reservation&);
 	void removeReservation(const string&);
-	int calculateSeatsTaken();
 
 	void operator=(const Session&);
 	bool operator==(const Session&);

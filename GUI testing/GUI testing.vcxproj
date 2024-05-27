@@ -93,6 +93,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Cinema.cpp" />
+    <ClCompile Include="CreditCard.cpp" />
     <ClCompile Include="Movie.cpp" />
     <ClCompile Include="Person.cpp" />
     <ClCompile Include="Reservation.cpp" />
@@ -112,6 +113,7 @@
   <ItemGroup>
     <ClInclude Include="Admin.h" />
     <ClInclude Include="Cinema.h" />
+    <ClInclude Include="CreditCard.h" />
     <ClInclude Include="Session.h" />
     <ClInclude Include="Customer.h" />
     <ClInclude Include="Employee.h" />
