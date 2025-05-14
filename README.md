@@ -1,4 +1,4 @@
-# 🎬 Cinema Management System
+# 🎬 Cinema Tickets Reservation System
 
 A full-featured Cinema Management System developed using **C++** and **Qt GUI**. This application allows customers to browse movies, view sessions, and book seats, while providing admins with tools to manage movies, timetables, and customer data.
 
